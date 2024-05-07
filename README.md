@@ -15,3 +15,16 @@
 
 ### Step 5:
 - After running the script, take the file from Step 4, rename it to 'mor-levi-pricelist-YYYYMMDD.csv' (YYYYMMDD - current date), and move it to the OLD directory.
+
+## C-Data Supplier:
+### TBA
+
+## CMS Supplier:
+### TBA
+
+## Amtel Supplier:
+### TBA
+
+## Benda Supplier:
+### TBA
+
