@@ -13,4 +13,5 @@ mor_levi = delete_irrelevant_items(mor_levi)
 mor_levi = change_prices_mor_levi(mor_levi)
 mor_levi = finalize_sale_price(mor_levi)
 mor_levi = finalize_upload_sheet(mor_levi)
+
 mor_levi.to_csv("mor_levi_upload.csv", encoding='utf-8-sig', index=False)
