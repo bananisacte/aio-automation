@@ -15,3 +15,19 @@ mor_levi = finalize_sale_price(mor_levi)
 mor_levi = finalize_upload_sheet(mor_levi)
 
 mor_levi.to_csv("mor_levi_upload.csv", encoding='utf-8-sig', index=False)
+
+df2 = pd.read_csv("files/aio_website_products.csv", low_memory=False)
+aio = df2.copy()
+filtered_aio = aio[aio['SupplierName'] == 'מור לוי']
+
+ids_only_in_file1 = set(mor_levi['ItemId']) - set(filtered_aio['ItemId'])
+new_df = mor_levi[mor_levi['ItemId'].isin(ids_only_in_file1)]
+new_df = new_df.drop(columns=['PriceList'])
+new_df.to_csv("mor-levi-new.csv", encoding='utf-8-sig', index=False)
+
+ids_only_in_file2 = set(filtered_aio['ItemId']) - set(mor_levi['ItemId'])
+new_df2 = filtered_aio[filtered_aio['ItemId'].isin(ids_only_in_file2)]
+keep_cols = ['ItemId', 'ItemStatus', 'PriceList']
+new_df2 = new_df2[keep_cols]
+new_df2['PriceList'] = 'פרטי'
+new_df2.to_csv("mor-levi-false.csv", encoding='utf-8-sig', index=False)

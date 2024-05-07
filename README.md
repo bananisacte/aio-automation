@@ -14,7 +14,17 @@
 - Move the saved file into the folder named "files" located in autosync-suppliers, with the name 'mor-levi-pricelist.csv'.
 
 ### Step 5:
-- After running the script, take the file from Step 4, rename it to 'mor-levi-pricelist-YYYYMMDD.csv' (YYYYMMDD - current date), and move it to the OLD directory.
+- From AIO website, download all products file, and save a copy of it under UTF-8 encoding with the name `aio_website_products.csv` and put the copy in the files folder!.
+
+### Step 6:
+- run the script, it should create 3 files -> `mor-levi-upload.csv`, `mor-levi-products-new.csv`, `mor-levi-products-false.csv` in the folder.
+
+### Step 7:
+- put those files in their relevant folders in the AIO onedrive folder!
+
+### Step 8:
+- upload the `mor-levi-upload.csv` and the `mor-levi-false` files to the AIO website.
+
 
 ## C-Data Supplier:
 ### TBA
