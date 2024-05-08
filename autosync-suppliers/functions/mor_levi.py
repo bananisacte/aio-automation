@@ -8,40 +8,62 @@ CPU_PREFIXES = ('מעבד', 'מעבד דור', 'מעבד גיימינג')
 AIR_COOLING_PREFIXES = ('מתאם', 'מאוורר', 'קירור אוויר', 'מאורר למעבד', 'מאוורר למעבד', 'Antec A30')
 LIQUID_COOLING_PREFIXES = ('קירור למעבד', 'קירור נוזלי', 'קירור', 'קרור', 'נוזלי')
 THERMO_PASTE_PREFIXES = ('משחה טרמית', 'משחה תרמית')
-MEMORY_PREFIXES = ('זכרון לנייח', 'זכרון לנייד', 'זיכרון לנייח', 'זיכרון לנייד', 'ז. לנייח', 'ז. לנייד', 'ז.לנייח', 'ז.לנייד', 'זכרון', 'זיכרון')
+MEMORY_PREFIXES = (
+'זכרון לנייח', 'זכרון לנייד', 'זיכרון לנייח', 'זיכרון לנייד', 'ז. לנייח', 'ז. לנייד', 'ז.לנייח', 'ז.לנייד', 'זכרון',
+'זיכרון')
 INTERNAL_DRIVES_PREFIXES = ('דיסק פנימי', 'דיסק קשיח', 'דיסק', 'דיסק לנייח')
-EXTERNAL_DRIVES_PREFIXES = ('דיסק חיצוני', 'דיסק קשיח חיצוני', 'דיסק קשיח מכאני חיצוני', 'זכרון נייד', 'ז.נייד', 'ז. נייד', 'כרטיס זכרון', 'כ. זכרון')
+EXTERNAL_DRIVES_PREFIXES = (
+'דיסק חיצוני', 'דיסק קשיח חיצוני', 'דיסק קשיח מכאני חיצוני', 'זכרון נייד', 'ז.נייד', 'ז. נייד', 'כרטיס זכרון',
+'כ. זכרון')
 EXTERNAL_MISC_PREFIXES = (
-    'צורב פנימי', 'צורב חיצוני', 'מארז  חיצוני ', 'קופסא לדיסק חיצוני', 'תחנת עגינה', 'קופסא חיצונית לדיסק', 'Maivo', 'מתאם', 'מארז ל4 דיסקים', 'קופסא לדיסק', 'קורא כרטיסים',
+    'צורב פנימי', 'צורב חיצוני', 'מארז  חיצוני ', 'קופסא לדיסק חיצוני', 'תחנת עגינה', 'קופסא חיצונית לדיסק', 'Maivo',
+    'מתאם', 'מארז ל4 דיסקים', 'קופסא לדיסק', 'קורא כרטיסים',
     'מארז חיצוני  ל-2 דיסקים', 'מארז חיצוני לדיסק', 'קופסא חיצונית', 'ת. עגינה'
 )
 PC_CASE_PREFIXES = (
-    'מארז ללא ספק', 'מארז Antec', 'מארז ANTEC', 'מארז Cooler Master', 'מארז COOLER MASTER', 'מארז Corsair', 'מארז CORSAIR', 'מארז וספק', 'מארז שחור', 'מארז לבן', 'מארז שקט', 'מארז גיימינג'
+    'מארז ללא ספק', 'מארז Antec', 'מארז ANTEC', 'מארז Cooler Master', 'מארז COOLER MASTER', 'מארז Corsair',
+    'מארז CORSAIR', 'מארז וספק', 'מארז שחור', 'מארז לבן', 'מארז שקט', 'מארז גיימינג'
 )
-PC_CASE_PARTS_PREFIXES = ('דלת צד למארז', 'זכוכית צד למארז ', 'זכוכית קידמית למארז', 'דלת ימין ', 'פנל קדמי', 'זכוכית קדמית', 'זכוכית למארז', 'דלת צד זכוכית למארזים')
-PC_FANS_PREFIXES = ('מאורר למארז', 'מאוורר אנטק', 'מאוררים למארז', 'מאוררים ובקר למארז', 'מאוורר קורסייר', 'מאוורר למארז')
+PC_CASE_PARTS_PREFIXES = (
+'דלת צד למארז', 'זכוכית צד למארז ', 'זכוכית קידמית למארז', 'דלת ימין ', 'פנל קדמי', 'זכוכית קדמית', 'זכוכית למארז',
+'דלת צד זכוכית למארזים')
+PC_FANS_PREFIXES = (
+'מאורר למארז', 'מאוורר אנטק', 'מאוררים למארז', 'מאוררים ובקר למארז', 'מאוורר קורסייר', 'מאוורר למארז')
 BASIC_PERIPHERALS_PREFIXES = (
-    'PCIe 5.0 12VHPWR GPU', 'כבל Molex', 'כבל SATA', 'מתאם MOLEX', 'מפצל חשמל Sata', 'מפצל לשתי Molex', 'מפצל Molex', 'ברגים למאוררים', 'רמקול ללוח אם', 'מפצל מאוררים מחיבור'
+    'PCIe 5.0 12VHPWR GPU', 'כבל Molex', 'כבל SATA', 'מתאם MOLEX', 'מפצל חשמל Sata', 'מפצל לשתי Molex', 'מפצל Molex',
+    'ברגים למאוררים', 'רמקול ללוח אם', 'מפצל מאוררים מחיבור'
 )
 ADV_PERIPHERALS_PREFIXES = (
-    'סט כבלים מאריכים', 'כבלים מאריכים', 'מתאם לספק', 'כבל ותושבת לכ. מסך', 'כבל ומתאם לכ.מסך', 'כבל לכרטיס מסך', 'תומך לכרטיס מסך', 'תומך לכרטיסי מסך', 'תופסן אנכי', 'בקר Cooler'
+    'סט כבלים מאריכים', 'כבלים מאריכים', 'מתאם לספק', 'כבל ותושבת לכ. מסך', 'כבל ומתאם לכ.מסך', 'כבל לכרטיס מסך',
+    'תומך לכרטיס מסך', 'תומך לכרטיסי מסך', 'תופסן אנכי', 'בקר Cooler'
 )
 PSU_PREFIXES = ('ספק כח', 'ספק כוח', 'ספק', 'Corsair HX1500i')
-LAPTOPS_PREFIXES = ('נייד', 'Gigabyte AERO 16', 'נינייד', 'מחשב נייד', 'נ. ASUS', 'ASUS VivoBook', 'ASUS TUF Gaming', 'VIVOBOOK PRO', 'Asus VivoBook')
-LAPTOP_WARRANTY_PREFIXES = ('הרחבת אחריות', 'ASUS Laptop series warranty', 'ASUS Vivibook / Vivobook S warranty', 'ASUS Zenbook / Vivobook Pro series warranty')
-BACKPACK_PREFIXES = ('תיק מהודר לנייד', 'תיק למחשב נייד', 'תיק צד שחור לנייד', 'תיק צד', 'תיק גב', 'תיק נשיאה לנייד', 'Dell Essential Briefcase')
-SCREENS_PREFIXES = ('SOLID', 'מסך', 'מסך גיימינג', 'Solid', 'מסך שטוח', 'מסך מחשב קעור', 'מסך קעור', 'מסך מחשב', 'מסך חכם', 'טלווזייה', 'טלוויזיה')
-SCREEN_STANDS_PREFIXES = ('מתקן תליה', 'מתקן צמוד קיר', 'זרוע דו מפרקית', 'זרוע שולחנית', 'מתאם למחשב נייד')
+LAPTOPS_PREFIXES = (
+'נייד', 'Gigabyte AERO 16', 'נינייד', 'מחשב נייד', 'נ. ASUS', 'ASUS VivoBook', 'ASUS TUF Gaming', 'VIVOBOOK PRO',
+'Asus VivoBook')
+LAPTOP_WARRANTY_PREFIXES = ('הרחבת אחריות', 'ASUS Laptop series warranty', 'ASUS Vivibook / Vivobook S warranty',
+                            'ASUS Zenbook / Vivobook Pro series warranty')
+BACKPACK_PREFIXES = ('תיק מהודר לנייד', 'תיק למחשב נייד', 'תיק צד שחור לנייד', 'תיק צד', 'תיק גב', 'תיק נשיאה לנייד',
+                     'Dell Essential Briefcase')
+SCREENS_PREFIXES = (
+'SOLID', 'מסך', 'מסך גיימינג', 'Solid', 'מסך שטוח', 'מסך מחשב קעור', 'מסך קעור', 'מסך מחשב', 'מסך חכם', 'טלווזייה',
+'טלוויזיה')
+SCREEN_STANDS_PREFIXES = (
+'מתקן תליה', 'מתקן צמוד קיר', 'זרוע דו מפרקית', 'זרוע שולחנית', 'מתאם למחשב נייד', 'מתקן תלייה')
 PC_PERIPHERALS_PREFIXES = (
-    'מקלדות סטנדרטיות', 'מקלדות גיימינג', 'עכברי גיימינג', 'עכבר חוטי', 'עכבר אלחוטי', 'סט חוטי', 'סט אל-חוטי', 'משטח לעכבר/משענת יד למקלדת', 'LOGITECH', 'CREATIVE', 'GENIUS', 'מיקרופונים', 'אוזניות'
+    'מקלדות סטנדרטיות', 'מקלדות גיימינג', 'עכברי גיימינג', 'עכבר חוטי', 'עכבר אלחוטי', 'סט חוטי', 'סט אל-חוטי',
+    'משטח לעכבר/משענת יד למקלדת', 'LOGITECH', 'CREATIVE', 'GENIUS', 'מיקרופונים', 'אוזניות'
 )
 USB_CABLES_ADATPTERS_PREFIXES = ('מפצלי USB', 'USB כבלים ומתאמים')
 DISPLAY_CABLES_PREFIXES = ('HDMI', 'VGA', 'Display Port', 'DVI')
-PERIPHERALS_PREFIXES = ('מוצרי אבטחה', 'מוצרי עזר לדיסק קשיח', 'מצלמות אינטרנט', 'כרטיסי PCI וPCIE', 'משטח קירור למחשב נייד', 'מצלמות דרך', "ג'ויסטיקים")
+PERIPHERALS_PREFIXES = (
+'מוצרי אבטחה', 'מוצרי עזר לדיסק קשיח', 'מצלמות אינטרנט', 'כרטיסי PCI וPCIE', 'משטח קירור למחשב נייד', 'מצלמות דרך',
+"ג'ויסטיקים")
 POWER_EXTENSTION_CORDS_PREFIXES = ('כבל מאריך חשמל', 'מפצל שני שקעים', 'מפצל חשמל')
 OTHER_PREFIXES = ('ספרי מנקה', 'ספריי לחץ אוויר', 'קופסאת מיתוג')
 
-HOME_NETWORK_PREFIXES = ('מודם סלולרי', 'נתבים', '2.5 Gbps', '10/100', '10/100/1000', 'POE', 'מנוהל', "סוויצ'ים", 'אקסס פוינט', 'כרטיסי רשת')
+HOME_NETWORK_PREFIXES = (
+'מודם סלולרי', 'נתבים', '2.5 Gbps', '10/100', '10/100/1000', 'POE', 'מנוהל', "סוויצ'ים", 'אקסס פוינט', 'כרטיסי רשת')
 NETWORK_CABLES_PREFIXES = ('CAT 5', 'CAT 5E', 'CAT 6', 'CAT 6A/7')
 OFFICE_NETWORK_PREFIXES = ('ארונות תקשורת', 'ארונות תקשורת', 'כלי עבודה לציוד רשת')
 
@@ -68,6 +90,14 @@ def rename_headers_mor_levi(df):
             case 'תמונת המוצר':
                 df.rename(columns={item: 'image'}, inplace=True)
     return df
+
+
+def export_faulty_rows_to_file(df):
+    condition = df[['mor_levi_id', 'price', 'item_status']].isnull().any(axis=1)
+    faulty_df = df[condition]
+    clean_df = df[~condition]
+    faulty_df.to_csv("mor_levi_faulty.csv",encoding='utf-8-sig', index=False)
+    return clean_df
 
 
 def change_item_status_mor_levi(df):
@@ -216,5 +246,4 @@ def finalize_upload_sheet(df):
                             'sale_price': 'RegularPrice',
                             'item_status': 'ItemStatus'})
     df = df.drop(columns=['manufacturer_id', 'description', 'category', 'manufacturer'])
-    df['PriceList'] = 'פרטי'
     return df
