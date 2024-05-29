@@ -1,5 +1,5 @@
 import pandas as pd
-from functions.mor_levi import rename_headers_mor_levi, change_item_status_mor_levi, change_prices_mor_levi, \
+from functions.mor_levi_old import rename_headers_mor_levi, change_item_status_mor_levi, change_prices_mor_levi, \
     finalize_sale_price, delete_irrelevant_items, finalize_upload_sheet, export_faulty_rows_to_file
 
 # pd.set_option('display.max_rows', None)
