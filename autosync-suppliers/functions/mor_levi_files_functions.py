@@ -1,6 +1,6 @@
 import pandas as pd
 
-from functions.ml_price_compare import change_prices_mor_levi, delete_irrelevant_categorys, finalize_sale_price, \
+from functions.mor_levi_compare_functions import change_prices_mor_levi, delete_irrelevant_categorys, finalize_sale_price, \
     change_inventory, change_item_status
 
 
