@@ -11,7 +11,7 @@ def create_updated_file(supplier_file_path):
     mor_levi = finalize_sale_price(mor_levi)
     mor_levi = change_inventory(mor_levi)
     mor_levi = change_item_status(mor_levi)
-    mor_levi.to_csv("mor_levi_compare_updated.csv", encoding='utf-8-sig', index=False)
+    mor_levi.to_csv("mor_levi_updated_prices.csv", encoding='utf-8-sig', index=False)
 
 
 def create_deleted_file(supplier_file_path):
