@@ -1,6 +1,49 @@
 import pandas as pd
-
 from constants import Category, SubCategory
+
+
+def extract_products_to_delete(supplier_df, website_df):
+    unique_item_ids_website = website_df[~website_df['ItemId'].isin(supplier_df['ItemId'])]['ItemId'].unique()
+    rows_to_keep = []
+    for item_id in unique_item_ids_website:
+        rows = website_df.loc[website_df['ItemId'] == item_id, ['ItemId', 'ItemStatus', 'category', 'SubCategory']].copy()
+        rows['ItemStatus'] = False
+        rows['category'] = "לא פעילים - למחיקה או טיפול"
+        rows['SubCategory'] = "למחיקה"
+        rows_to_keep.append(rows)
+    new_df = pd.concat(rows_to_keep, ignore_index=True)
+    return new_df
+
+
+def extract_products_to_new(supplier_df, website_df):
+    unique_item_ids_supplier = supplier_df[~supplier_df['ItemId'].isin(website_df['ItemId'])]['ItemId'].unique()
+    rows_to_keep = []
+    for item_id in unique_item_ids_supplier:
+        rows = supplier_df.loc[supplier_df['ItemId'] == item_id, ['ItemId', 'CostPrice', 'SalePrice', 'ItemStatus']].copy()
+        rows_to_keep.append(rows)
+    new_df = pd.concat(rows_to_keep, ignore_index=True)
+    return new_df
+
+
+def create_upload_to_update_file(supplier_df, website_df):
+    new_rows = []
+    for index, row in supplier_df.iterrows():
+        item_id = row['ItemId']
+        if item_id in website_df['ItemId'].values:
+            website_row = website_df[website_df['ItemId'] == item_id].iloc[0]
+            new_row = {
+                'erpid': item_id,
+                'ItemId': item_id,
+                'CostPrice': row['CostPrice'],
+                'RegularPrice': website_row['RegularPrice'],
+                'ZapMinimumPrice': website_row['RegularPrice'],
+                'ZapLocation': 1,
+                'Inventory': row['Inventory'],
+                'ItemStatus': row['ItemStatus']
+            }
+            new_rows.append(new_row)
+    new_df = pd.DataFrame(new_rows)
+    return new_df
 
 
 def change_prices_mor_levi(df):
