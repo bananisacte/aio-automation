@@ -8,3 +8,4 @@ __pycache__
 .pytest_cache
 *.csv
 /autosync-suppliers/files
+Files/mor_levi_final

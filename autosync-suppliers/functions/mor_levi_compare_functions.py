@@ -19,7 +19,7 @@ def extract_products_to_new(supplier_df, website_df):
     unique_item_ids_supplier = supplier_df[~supplier_df['ItemId'].isin(website_df['ItemId'])]['ItemId'].unique()
     rows_to_keep = []
     for item_id in unique_item_ids_supplier:
-        rows = supplier_df.loc[supplier_df['ItemId'] == item_id, ['ItemId', 'CostPrice', 'SalePrice', 'ItemStatus']].copy()
+        rows = supplier_df.loc[supplier_df['ItemId'] == item_id, ['ItemId', 'CostPrice', 'RegularPrice', 'ItemStatus']].copy()
         rows_to_keep.append(rows)
     new_df = pd.concat(rows_to_keep, ignore_index=True)
     return new_df
@@ -31,15 +31,18 @@ def create_upload_to_update_file(supplier_df, website_df):
         item_id = row['ItemId']
         if item_id in website_df['ItemId'].values:
             website_row = website_df[website_df['ItemId'] == item_id].iloc[0]
+            supplier_row = supplier_df[supplier_df['ItemId'] == item_id].iloc[0]
             new_row = {
                 'erpid': item_id,
                 'ItemId': item_id,
                 'CostPrice': row['CostPrice'],
-                'RegularPrice': website_row['RegularPrice'],
-                'ZapMinimumPrice': website_row['RegularPrice'],
+                'RegularPrice': supplier_row['RegularPrice'],
+                'ZapMinimumPrice': supplier_row['RegularPrice'],
                 'ZapLocation': 1,
                 'Inventory': row['Inventory'],
-                'ItemStatus': row['ItemStatus']
+                'ItemStatus': row['ItemStatus'],
+                'PriceList': 'פרטי',
+                'zap_url': website_row['zap_url']
             }
             new_rows.append(new_row)
     new_df = pd.DataFrame(new_rows)
@@ -50,7 +53,7 @@ def change_prices_mor_levi(df):
     df['CostPrice'] = df['CostPrice'].str.replace('₪', '')
     df['CostPrice'] = df['CostPrice'].str.replace(',', '')
     df['CostPrice'] = pd.to_numeric(df['CostPrice'], errors='coerce')
-    df.insert(df.columns.get_loc('CostPrice') + 1, 'SalePrice', None)
+    df.insert(df.columns.get_loc('CostPrice') + 1, 'RegularPrice', None)
     return df
 
 
@@ -69,7 +72,7 @@ def delete_irrelevant_categorys(df):
 
 
 def finalize_sale_price(df):
-    df['SalePrice'] = df.apply(calculate_sale_price, axis=1)
+    df['RegularPrice'] = df.apply(calculate_sale_price, axis=1)
     return df
 
 
@@ -81,16 +84,18 @@ def calculate_sale_price(row):
 
         case Category.MorLevi.GPUS:
             if row['SubCategory'] in SubCategory.MorLevi.GPUS:
-                if row['CostPrice'] < 5000:
+                if row['CostPrice'] < 1000:
+                    return round((row['CostPrice'] * 1.17 * 1.02 * 1.15), 0)
+                elif 1000 < row['CostPrice'] < 3000:
                     return round((row['CostPrice'] * 1.17 * 1.02 * 1.1), 0)
-                elif row['CostPrice'] > 5000:
+                elif row['CostPrice'] > 3000:
                     return round((row['CostPrice'] * 1.17 * 1.02 * 1.05), 0)
 
         case Category.MorLevi.PERIPHERALS:
             if row['SubCategory'] in SubCategory.MorLevi.PERIPHERALS:
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.CABLE_PERIPHERALS:
-                return round((row['CostPrice'] * 2.5), 0)
+                return round((row['CostPrice'] * 1.17 * 1.02 * 2.25), 0)
 
         case Category.MorLevi.CPU_AND_COOLING:
             if row['SubCategory'] in SubCategory.MorLevi.CPUS:
@@ -103,7 +108,7 @@ def calculate_sale_price(row):
             if row['SubCategory'] in SubCategory.MorLevi.LIQUID_COOLING:
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.15), 0)
             if row['SubCategory'] in SubCategory.MorLevi.THERMO_PASTE:
-                return round((row['CostPrice'] * 2), 0)
+                return round((row['CostPrice'] * 1.17 * 1.02 * 1.55), 0)
 
         case Category.MorLevi.MEMORY:
             if row['SubCategory'] in SubCategory.MorLevi.MEMORY:
@@ -116,14 +121,14 @@ def calculate_sale_price(row):
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
 
         case Category.MorLevi.FANS_CASES_MISC:
-            if row['SubCategory'] in SubCategory.MorLevi.PC_CASES:
-                return round((row['CostPrice'] * 1.17 * 1.02 * 1.5), 0)
+            if row['SubCategory'] in SubCategory.MorLevi.PC_CAES:
+                return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.PC_FANS:
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.5), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.PC_INTERNAL_CABLES:
-                return round((row['CostPrice'] * 2.5), 0)
+                return round((row['CostPrice'] * 1.17 * 1.02 * 2.25), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.PC_PANELS_AND_DOORS:
-                return round((row['CostPrice'] * 2), 0)
+                return round((row['CostPrice'] * 1.17 * 1.02 * 1.75), 0)
 
         case Category.MorLevi.PSU:
             if row['SubCategory'] in SubCategory.MorLevi.PSUS:
@@ -131,7 +136,10 @@ def calculate_sale_price(row):
 
         case Category.MorLevi.LAPTOPS_TABLETS:
             if row['SubCategory'] in SubCategory.MorLevi.LAPTOPS_TABLETS:
-                return round((row['CostPrice'] * 1.17 * 1.02 * 1.05), 0)
+                if row['CostPrice'] < 1000:
+                    return round((row['CostPrice'] * 1.17 * 1.02 * 1.1), 0)
+                elif row['CostPrice'] > 1000:
+                    return round((row['CostPrice'] * 1.17 * 1.02 * 1.05), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.WARRANTY_EXT:
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.5), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.CHARGERS:
@@ -139,7 +147,7 @@ def calculate_sale_price(row):
             elif row['SubCategory'] in SubCategory.MorLevi.DOCKING_STATIONS:
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.BAGS:
-                return round((row['CostPrice'] * 2.5), 0)
+                return round((row['CostPrice'] * 1.17 * 1.02 * 2.25), 0)
 
         case Category.MorLevi.DESKTOPS:
             if row['SubCategory'] in SubCategory.MorLevi.DESKTOPS:
@@ -155,7 +163,7 @@ def calculate_sale_price(row):
             if row['SubCategory'] in SubCategory.MorLevi.MONITORS_TVS:
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.14), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.SCREEN_HANGERS:
-                return round((row['CostPrice'] * 2), 0)
+                return round((row['CostPrice'] * 1.17 * 1.02 * 1.75), 0)
 
         case Category.MorLevi.SOUND:
             if row['SubCategory'] in SubCategory.MorLevi.SOUND:
@@ -165,9 +173,9 @@ def calculate_sale_price(row):
             if row['SubCategory'] in SubCategory.MorLevi.HOME_NETWORK:
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.25), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.COMM_CLOSET:
-                return round((row['CostPrice'] * 2), 0)
+                return round((row['CostPrice'] * 1.17 * 1.02 * 1.75), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.NETWORK_CABLES:
-                return round((row['CostPrice'] * 3.5), 0)
+                return round((row['CostPrice'] * 1.17 * 1.02 * 3.25), 0)
 
         case Category.MorLevi.UPS:
             if row['SubCategory'] in SubCategory.MorLevi.UPS:

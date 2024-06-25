@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 class Category:
     class MorLevi:
         MOBOS = 'לוחות אם'
@@ -31,7 +34,7 @@ class SubCategory:
         AIR_COOLING = ('פתרונות קירור אוויר')
         THERMO_PASTE = ('משחה טרמית')
         MEMORY = ('זכרון לנייח DIMM', 'זכרון לנייד SODIMM')
-        INTERNAL_STORAGE = ('SSD sata 3', 'NVME GEN3', 'NVME GEN4', 'HDD פנימי','NVME GEN5')
+        INTERNAL_STORAGE = ('SSD sata 3', 'NVME GEN3', 'NVME GEN4', 'HDD פנימי', 'NVME GEN5')
         EXTERNAL_STORAGE = ('קופסא חיצונית לHDD', 'SSD חיצוני', 'HDD חיצוני', 'Disk On Key', 'MICRO SD', 'כונן אופטי')
         PC_CASES = ('Antec', 'Corsair', 'Cooler Master', 'Solid & Others')
         PC_FANS = ('מאוררים למארז')
@@ -52,3 +55,52 @@ class SubCategory:
         HOME_NETWORK = ("סוויצ'ים", "כרטיסי רשת", "מודם סלולרי", "אקסס פוינט", "נתבים")
         COMM_CLOSET = ('ארונות תקשורת', 'כלי עבודה לציוד רשת')
         NETWORK_CABLES = ('כבלי רשת', 'ראשים וקופסאות')
+
+
+class GrowthEnum(Enum):
+    FACTOR_1_05 = 25.31
+    FACTOR_1_1 = 31.27
+    FACTOR_1_15 = 37.24
+    FACTOR_1_2 = 43.21
+    FACTOR_1_25 = 49.18
+    FACTOR_1_3 = 55.14
+    FACTOR_1_35 = 61.11
+    FACTOR_1_5 = 79.01
+    FACTOR_1_55 = 84.98
+    FACTOR_1_75 = 108.85
+    FACTOR_2_25 = 168.52
+    FACTOR_2_75 = 228.19
+    FACTOR_3_25 = 287.86
+
+# class CategoryFactor:
+#     class MorLevi:
+#         MOBOS =
+#         GPUS =
+#         PERIPHERALS =
+#         CABLE_PERIPHERALS =
+#         CPUS =
+#         LIQUID_COOLING =
+#         AIR_COOLING =
+#         THERMO_PASTE =
+#         MEMORY =
+#         INTERNAL_STORAGE =
+#         EXTERNAL_STORAGE =
+#         PC_CASES =
+#         PC_FANS =
+#         PC_INTERNAL_CABLES =
+#         PC_PANELS_AND_DOORS =
+#         PSUS =
+#         LAPTOPS_TABLETS =
+#         WARRANTY_EXT =
+#         CHARGERS =
+#         DOCKING_STATIONS =
+#         BAGS =
+#         DESKTOPS =
+#         KBM =
+#         MONITORS_TVS =
+#         SCREEN_HANGERS =
+#         SOUND =
+#         UPS =
+#         HOME_NETWORK =
+#         COMM_CLOSET =
+#         NETWORK_CABLES =
