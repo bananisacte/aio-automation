@@ -1,6 +1,14 @@
 import pandas as pd
 from functions.mor_levi_compare_functions import change_prices_mor_levi, delete_irrelevant_categorys, finalize_sale_price, change_inventory, change_item_status, extract_products_to_delete, \
-    extract_products_to_new, create_upload_to_update_file
+    extract_products_to_new, create_upload_to_update_file, clean_up_website_file
+from functions.prices_growth_qa import check_min_growths
+
+
+def create_website_mor_levi_only_file(website_file_path):
+    df = pd.read_csv(website_file_path)
+    mor_levi = df.copy()
+    mor_levi = clean_up_website_file(mor_levi)
+    mor_levi.to_csv("autosync-suppliers\\files\\aio_website_mor_levi_only.csv", encoding='utf-8-sig', index=False)
 
 
 def create_updated_file(supplier_file_path):
@@ -12,6 +20,7 @@ def create_updated_file(supplier_file_path):
     mor_levi = finalize_sale_price(mor_levi)
     mor_levi = change_inventory(mor_levi)
     mor_levi = change_item_status(mor_levi)
+    mor_levi = check_min_growths(mor_levi)
     mor_levi.to_csv("Files\\mor_levi_final\\mor_levi_updated_prices.csv", encoding='utf-8-sig', index=False)
 
 

@@ -1,5 +1,24 @@
 import pandas as pd
-from constants import Category, SubCategory
+from constants import Category, SubCategory, GrowthEnum
+
+
+def clean_up_website_file(website_df):
+    columns_to_keep = [
+        "ItemId",
+        "category",
+        "SubCategory",
+        "CostPrice",
+        "ItemStatus",
+        "RegularPrice",
+        "SupplierName",
+        "zap_url",
+        "ZapLocation",
+        "ZapMinimumPrice",
+    ]
+    filtered_df = website_df[columns_to_keep]
+    filtered_df = filtered_df[filtered_df['SupplierName'] == 'מור לוי']
+    return filtered_df
+
 
 
 def extract_products_to_delete(supplier_df, website_df):
@@ -121,7 +140,7 @@ def calculate_sale_price(row):
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
 
         case Category.MorLevi.FANS_CASES_MISC:
-            if row['SubCategory'] in SubCategory.MorLevi.PC_CAES:
+            if row['SubCategory'] in SubCategory.MorLevi.PC_CASES:
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
             elif row['SubCategory'] in SubCategory.MorLevi.PC_FANS:
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.5), 0)
@@ -180,3 +199,107 @@ def calculate_sale_price(row):
         case Category.MorLevi.UPS:
             if row['SubCategory'] in SubCategory.MorLevi.UPS:
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
+
+
+def set_price_growths(row):
+    if row['SubCategory'] in SubCategory.MorLevi.MOBOS:
+        row['MinGrowth'] = GrowthEnum.FACTOR_1_15.value
+
+        # case Category.MorLevi.GPUS:
+        #     if row['SubCategory'] in SubCategory.MorLevi.GPUS:
+        #         if row['CostPrice'] < 1000:
+        #             return round((row['CostPrice'] * 1.17 * 1.02 * 1.15), 0)
+        #         elif 1000 < row['CostPrice'] < 3000:
+        #             return round((row['CostPrice'] * 1.17 * 1.02 * 1.1), 0)
+        #         elif row['CostPrice'] > 3000:
+        #             return round((row['CostPrice'] * 1.17 * 1.02 * 1.05), 0)
+        #
+        # case Category.MorLevi.PERIPHERALS:
+        #     if row['SubCategory'] in SubCategory.MorLevi.PERIPHERALS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.CABLE_PERIPHERALS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 2.25), 0)
+        #
+        # case Category.MorLevi.CPU_AND_COOLING:
+        #     if row['SubCategory'] in SubCategory.MorLevi.CPUS:
+        #         if row['CostPrice'] < 1000:
+        #             return round((row['CostPrice'] * 1.17 * 1.02 * 1.15), 0)
+        #         elif row['CostPrice'] > 1000:
+        #             return round((row['CostPrice'] * 1.17 * 1.02 * 1.1), 0)
+        #     if row['SubCategory'] in SubCategory.MorLevi.AIR_COOLING:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
+        #     if row['SubCategory'] in SubCategory.MorLevi.LIQUID_COOLING:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.15), 0)
+        #     if row['SubCategory'] in SubCategory.MorLevi.THERMO_PASTE:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.55), 0)
+        #
+        # case Category.MorLevi.MEMORY:
+        #     if row['SubCategory'] in SubCategory.MorLevi.MEMORY:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.2), 0)
+        #
+        # case Category.MorLevi.STORAGE:
+        #     if row['SubCategory'] in SubCategory.MorLevi.INTERNAL_STORAGE:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.15), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.EXTERNAL_STORAGE:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
+        #
+        # case Category.MorLevi.FANS_CASES_MISC:
+        #     if row['SubCategory'] in SubCategory.MorLevi.PC_CASES:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.PC_FANS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.5), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.PC_INTERNAL_CABLES:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 2.25), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.PC_PANELS_AND_DOORS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.75), 0)
+        #
+        # case Category.MorLevi.PSU:
+        #     if row['SubCategory'] in SubCategory.MorLevi.PSUS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.15), 0)
+        #
+        # case Category.MorLevi.LAPTOPS_TABLETS:
+        #     if row['SubCategory'] in SubCategory.MorLevi.LAPTOPS_TABLETS:
+        #         if row['CostPrice'] < 1000:
+        #             return round((row['CostPrice'] * 1.17 * 1.02 * 1.1), 0)
+        #         elif row['CostPrice'] > 1000:
+        #             return round((row['CostPrice'] * 1.17 * 1.02 * 1.05), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.WARRANTY_EXT:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.5), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.CHARGERS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.5), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.DOCKING_STATIONS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.BAGS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 2.25), 0)
+        #
+        # case Category.MorLevi.DESKTOPS:
+        #     if row['SubCategory'] in SubCategory.MorLevi.DESKTOPS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.1), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.WARRANTY_EXT:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.5), 0)
+        #
+        # case Category.MorLevi.KBM:
+        #     if row['SubCategory'] in SubCategory.MorLevi.KBM:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
+        #
+        # case Category.MorLevi.MONITORS_TVS_AND_HANGERS:
+        #     if row['SubCategory'] in SubCategory.MorLevi.MONITORS_TVS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.14), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.SCREEN_HANGERS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.75), 0)
+        #
+        # case Category.MorLevi.SOUND:
+        #     if row['SubCategory'] in SubCategory.MorLevi.SOUND:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
+        #
+        # case Category.MorLevi.NETWORK:
+        #     if row['SubCategory'] in SubCategory.MorLevi.HOME_NETWORK:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.25), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.COMM_CLOSET:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.75), 0)
+        #     elif row['SubCategory'] in SubCategory.MorLevi.NETWORK_CABLES:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 3.25), 0)
+        #
+        # case Category.MorLevi.UPS:
+        #     if row['SubCategory'] in SubCategory.MorLevi.UPS:
+        #         return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)

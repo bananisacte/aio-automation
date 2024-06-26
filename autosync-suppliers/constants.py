@@ -72,35 +72,24 @@ class GrowthEnum(Enum):
     FACTOR_2_75 = 228.19
     FACTOR_3_25 = 287.86
 
-# class CategoryFactor:
-#     class MorLevi:
-#         MOBOS =
-#         GPUS =
-#         PERIPHERALS =
-#         CABLE_PERIPHERALS =
-#         CPUS =
-#         LIQUID_COOLING =
-#         AIR_COOLING =
-#         THERMO_PASTE =
-#         MEMORY =
-#         INTERNAL_STORAGE =
-#         EXTERNAL_STORAGE =
-#         PC_CASES =
-#         PC_FANS =
-#         PC_INTERNAL_CABLES =
-#         PC_PANELS_AND_DOORS =
-#         PSUS =
-#         LAPTOPS_TABLETS =
-#         WARRANTY_EXT =
-#         CHARGERS =
-#         DOCKING_STATIONS =
-#         BAGS =
-#         DESKTOPS =
-#         KBM =
-#         MONITORS_TVS =
-#         SCREEN_HANGERS =
-#         SOUND =
-#         UPS =
-#         HOME_NETWORK =
-#         COMM_CLOSET =
-#         NETWORK_CABLES =
+class GrowthMinPrices:
+    class Category:
+        class MorLevi:
+            MOBOS = 'לוחות אם Motherboards'
+            GPUS = 'כרטיסי מסך GPU'
+            PERIPHERALS = 'ציוד הקפי'
+            CPU_AND_COOLING = 'קירור למעבד CPU Cooler'
+            MEMORY = 'זיכרונות RAM Memory'
+            STORAGE = 'אחסון'
+            FANS_CASES_MISC = 'מארזים / מאוררים למארז/ ציוד עזר לבנית מחשב'
+            PSU = 'ספקי כוח'
+            LAPTOPS_TABLETS = 'מחשבים ניידים/ טאבלטים'
+            DESKTOPS = 'מחשבים נייחים'
+            KBM = 'מקלדות ועכברים'
+            MONITORS_TVS_AND_HANGERS = 'מסכי מחשב / טלוויזיות/מתקני תלייה'
+            SOUND = 'SOUND - ציוד קול'
+            NETWORK = 'ציוד רשת'
+            UPS = 'אל פסק UPS'
+            CCTV = 'טלוויזיה במעגל סגור'
+
+
