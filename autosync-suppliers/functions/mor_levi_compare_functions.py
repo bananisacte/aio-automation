@@ -34,15 +34,24 @@ def extract_products_to_delete(supplier_df, website_df):
     return new_df
 
 
-def extract_products_to_new(supplier_df, website_df):
-    unique_item_ids_supplier = supplier_df[~supplier_df['ItemId'].isin(website_df['ItemId'])]['ItemId'].unique()
-    rows_to_keep = []
-    for item_id in unique_item_ids_supplier:
-        rows = supplier_df.loc[supplier_df['ItemId'] == item_id, ['ItemId', 'CostPrice', 'RegularPrice', 'ItemStatus']].copy()
-        rows_to_keep.append(rows)
-    new_df = pd.concat(rows_to_keep, ignore_index=True)
-    return new_df
+# def extract_products_to_new(supplier_df, website_df):
+#     unique_item_ids_supplier = supplier_df[~supplier_df['ItemId'].isin(website_df['ItemId'])]['ItemId'].unique()
+#     rows_to_keep = []
+#     for item_id in unique_item_ids_supplier:
+#         rows = supplier_df.loc[supplier_df['ItemId'] == item_id, ['ItemId', 'CostPrice', 'RegularPrice', 'ItemStatus']].copy()
+#         rows_to_keep.append(rows)
+#     new_df = pd.concat(rows_to_keep, ignore_index=True)
+#     return new_df
 
+
+def extract_products_to_new(supplier_df, website_df):
+    # Find unique ItemIds in supplier_df that are not in website_df
+    unique_item_ids_supplier = supplier_df[~supplier_df['ItemId'].isin(website_df['ItemId'])]['ItemId'].unique()
+
+    # Keep rows from supplier_df for the unique item ids
+    new_df = supplier_df[supplier_df['ItemId'].isin(unique_item_ids_supplier)].copy()
+
+    return new_df
 
 def create_upload_to_update_file(supplier_df, website_df):
     new_rows = []
