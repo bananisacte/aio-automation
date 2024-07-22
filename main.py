@@ -18,7 +18,7 @@ def qa():
     generate_qa_results("autosync-suppliers/files/aio_website_qa.csv")
 
 
-# suppliers()
+suppliers()
 # qa()
 
-create_new_to_upload_file("Files/mor_levi_final/mor_levi_updated_prices.csv", "autosync-suppliers/files/aio_website_mor_levi_only.csv")
+# create_new_to_upload_file("Files/mor_levi_final/mor_levi_updated_prices.csv", "autosync-suppliers/files/aio_website_mor_levi_only.csv")
