@@ -1,3 +1,6 @@
+import re
+
+import openpyxl
 import pandas as pd
 from functions.mor_levi_compare_functions import change_prices_mor_levi, delete_irrelevant_categorys, finalize_sale_price, change_inventory, change_item_status, extract_products_to_delete, \
     extract_products_to_new, create_upload_to_update_file, clean_up_website_file
@@ -55,3 +58,37 @@ def create_new_items_for_picture_parse(supplier_file_path):
     mor_levi = df.copy()
     mor_levi.to_csv("Files\\mor_levi_final\\mor_levi_new_items_for_picture_parse.csv", encoding='windows-1255', index=False)
     return mor_levi
+
+
+def csv_to_xlsx_with_categories(input_csv, output_xlsx):
+    df = pd.read_csv(input_csv, encoding='windows-1255')
+    workbook = openpyxl.Workbook()
+    workbook.remove(workbook.active)
+    unique_combos = df[['Category', 'SubCategory']].drop_duplicates()
+    for _, row in unique_combos.iterrows():
+        category = row['Category']
+        subcategory = row['SubCategory']
+        print(f"category: {category}, subcategory: {subcategory}")
+        sheet_name = clean_sheet_name(f"{category}_{subcategory}")
+        base_name = sheet_name
+        counter = 1
+        while sheet_name in workbook.sheetnames:
+            sheet_name = f"{base_name}_{counter}"
+            counter += 1
+        sheet_data = df[(df['Category'] == category) & (df['SubCategory'] == subcategory)]
+        worksheet = workbook.create_sheet(title=sheet_name)
+        for r_idx, _row in enumerate(sheet_data.itertuples(index=False), start=1):
+            for c_idx, value in enumerate(_row, start=1):
+                worksheet.cell(row=r_idx, column=c_idx, value=value)
+        for c_idx, column in enumerate(sheet_data.columns, start=1):
+            worksheet.cell(row=1, column=c_idx, value=column)
+    workbook.save(output_xlsx)
+
+
+def clean_sheet_name(name):
+    invalid_chars = r'[\\/*?:\[\]]'
+    name = re.sub(invalid_chars, '.', name)
+    name = name[:31]
+    if not name.strip('.'):
+        name = "Sheet"
+    return name

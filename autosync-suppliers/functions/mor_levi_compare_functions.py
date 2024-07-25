@@ -210,7 +210,8 @@ def calculate_sale_price(row):
                 return round((row['CostPrice'] * 1.17 * 1.02 * 1.3), 0)
 
 
-# def set_price_growths(row):
+def set_price_growths(row):
+    pass
 #     if row['SubCategory'] in SubCategory.MorLevi.MOBOS:
 #         row['MinGrowth'] = GrowthEnum.FACTOR_1_15.value
 
