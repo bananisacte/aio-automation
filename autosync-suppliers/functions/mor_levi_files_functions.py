@@ -5,7 +5,7 @@ from functions.prices_growth_qa import check_min_growths
 
 
 def create_website_mor_levi_only_file(website_file_path):
-    df = pd.read_csv(website_file_path)
+    df = pd.read_csv(website_file_path, low_memory=False)
     mor_levi = df.copy()
     mor_levi = clean_up_website_file(mor_levi)
     mor_levi.to_csv("autosync-suppliers\\files\\aio_website_mor_levi_only.csv", encoding='utf-8-sig', index=False)
@@ -48,3 +48,10 @@ def create_update_file_to_upload(supplier_file_path, aio_website_file_path):
     all_in_one = df2.copy()
     create_upload_to_update_file(mor_levi, all_in_one).to_csv("Files\\mor_levi_final\\mor_levi_update.csv", encoding='windows-1255', index=False)
     return mor_levi, all_in_one
+
+
+def create_new_items_for_picture_parse(supplier_file_path):
+    df = pd.read_csv(supplier_file_path, usecols=['ItemId', 'ItemURL'], encoding='windows-1255')
+    mor_levi = df.copy()
+    mor_levi.to_csv("Files\\mor_levi_final\\mor_levi_new_items_for_picture_parse.csv", encoding='windows-1255', index=False)
+    return mor_levi

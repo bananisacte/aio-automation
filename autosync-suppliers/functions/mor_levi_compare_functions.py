@@ -28,7 +28,7 @@ def extract_products_to_delete(supplier_df, website_df):
         rows = website_df.loc[website_df['ItemId'] == item_id, ['ItemId', 'ItemStatus', 'category', 'SubCategory']].copy()
         rows['ItemStatus'] = False
         rows['category'] = "לא פעילים - למחיקה או טיפול"
-        rows['SubCategory'] = "למחיקה"
+        rows['SubCategory'] = "מור לוי למחיקה"
         rows_to_keep.append(rows)
     new_df = pd.concat(rows_to_keep, ignore_index=True)
     return new_df
