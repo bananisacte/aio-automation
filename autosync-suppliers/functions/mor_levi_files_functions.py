@@ -68,7 +68,6 @@ def csv_to_xlsx_with_categories(input_csv, output_xlsx):
     for _, row in unique_combos.iterrows():
         category = row['Category']
         subcategory = row['SubCategory']
-        print(f"category: {category}, subcategory: {subcategory}")
         sheet_name = clean_sheet_name(f"{category}_{subcategory}")
         base_name = sheet_name
         counter = 1
