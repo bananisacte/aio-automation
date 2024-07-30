@@ -9,3 +9,4 @@ __pycache__
 *.csv
 /autosync-suppliers/files
 Files/mor_levi_final
+pics_manipulation/image_links.txt
